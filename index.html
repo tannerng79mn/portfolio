@@ -795,12 +795,12 @@ footer a:hover { color: var(--accent); }
           <div class="proj-icon">
             <svg viewBox="0 0 24 24"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
           </div>
-          <span class="proj-status progress">In Progress</span>
+          <span class="proj-status complete">Complete</span>
         </div>
-        <p class="proj-title">Your Project Title</p>
-        <p class="proj-desc">What are you currently building? What's the data source, the question, the pipeline? In-progress work shows momentum — don't wait until it's perfect to include it here.</p>
+        <p class="proj-title">Wisconsin Healthcare Access Pipeline</p>
+        <p class="proj-desc">An end-to-end data engineering pipeline that ranks all 72 Wisconsin counties by healthcare need and access gap — using PCA-derived composite scores, dbt, Snowflake, and County Health Rankings data to answer: where does investment matter most?</p>
         <div class="proj-stack">
-          <span class="proj-chip">Snowflake</span><span class="proj-chip">dbt</span><span class="proj-chip">Statistics</span>
+          <span class="proj-chip">Python</span><span class="proj-chip">dbt</span><span class="proj-chip">Snowflake</span><span class="proj-chip">PCA</span>
         </div>
         <div class="proj-footer">
           <button class="proj-link" onclick="openProject('project-2')">
@@ -924,19 +924,46 @@ const PROJECTS = {
   },
   'project-2': {
     label: 'Data Engineering',
-    title: 'Your Project Title',
-    status: 'In Progress', statusClass: 'progress',
-    stack: ['Snowflake', 'dbt', 'Statistics'],
+    title: 'Wisconsin Healthcare Access Pipeline',
+    status: 'Complete', statusClass: 'complete',
+    stack: ['Python', 'dbt', 'Snowflake', 'PCA', 'scikit-learn'],
     github: '#',
     summary: `
-      <p>Describe the <strong>problem or dataset</strong> you're working with and why it caught your attention.</p>
-      <p>Detail your <strong>process</strong> — how you structured the pipeline, what transformations you applied, and what analytical methods you're using.</p>
-      <p>Since this is in progress, share what you've built so far and what's still ahead. Intellectual honesty about work-in-progress builds trust.</p>
+      <p>Imagine you are a policymaker with a limited budget and 72 Wisconsin counties asking for attention. Every county has needs. Every county has gaps. But you cannot fund everything, and the wrong choice means the most vulnerable communities wait another year.</p>
+      <p>That is the problem this project set out to solve.</p>
+
+      <p class="proj-page-section-title" style="margin-top:2rem;">The Question</p>
+      <p><strong>Which Wisconsin counties are most in need of healthcare investment?</strong></p>
+      <p>Not just which counties have high poverty rates. Not just which counties lack doctors. Both dimensions at once — because a county can have devastating health burdens and still have adequate providers, or have almost no providers and relatively healthy residents. The counties that need investment most are the ones where high need and poor access collide simultaneously.</p>
+
+      <p class="proj-page-section-title" style="margin-top:2rem;">The Pipeline</p>
+      <p>The project is an end-to-end data engineering pipeline built on <strong>Python</strong>, <strong>dbt</strong>, and <strong>Snowflake</strong>, processing County Health Rankings data across all 72 Wisconsin counties. Raw data flows through four layers — Raw → Staging → Conformed → Marts — with 8 dbt models building on each other in a dependency graph that resolves and runs in under 30 seconds.</p>
+      <p>The most technically interesting layer sits between conformed and marts: a Python script that runs <strong>Principal Component Analysis</strong> to derive data-driven composite scores for each county. Rather than assigning arbitrary weights to metrics, PCA finds the linear combination that captures the most variation across counties — letting the data determine what matters most.</p>
+      <p>The result: a <strong>Need Score</strong> where PC1 explains 49.97% of variance across 11 metrics, and an <strong>Access Gap Score</strong> where PC1 explains 48.06% of variance across 7 metrics. Both are well above the threshold that signals a genuine dominant structure in the data.</p>
+
+      <p class="proj-page-section-title" style="margin-top:2rem;">The Classification Framework</p>
+      <p>Counties are placed into one of four quadrants using 75th percentile thresholds derived from the full Wisconsin distribution. Counties above both thresholds simultaneously — high need and high access gap — are the primary targets. The analysis found <strong>10 counties</strong>, just 13.9% of Wisconsin, meeting that bar.</p>
+
+      <p class="proj-page-section-title" style="margin-top:2rem;">What the Data Found</p>
+      <p>Every single high-priority county averages <strong>98.6% rural population</strong> and just 39.2 primary care providers per 100,000 residents — roughly half the Wisconsin average. These are not abstract statistics. They describe communities where a resident may drive 40 miles to see a doctor, and where the nearest mental health provider may not exist at all.</p>
+      <p>When urgency is weighted by population reach, <strong>Clark County rises to the top</strong>. It has the highest access gap score in Wisconsin at 4.588 standard deviations above average. Its adult uninsured rate is nearly 2.5 times the state average. Its broadband access is among the lowest in the state. These two deficits close off both the traditional and telehealth routes to care simultaneously — with 34,774 residents affected.</p>
+      <p><strong>Adams County</strong> has 9.6 primary care providers per 100,000 people. The Wisconsin average is approximately 60–70. Adams has roughly one seventh of average primary care capacity. <strong>Forest County</strong> goes further: its primary care rate is not reported at all in the source data, suppressed because the underlying count is too small to measure statistically. A county so underserved its shortage cannot be measured is, almost by definition, the most underserved.</p>
+      <p>The analysis also found that access barriers are not one problem — they are three distinct profiles requiring different interventions: insurance and connectivity deserts, primary care and dental voids, and mental health provider gaps. Each implies a different investment strategy.</p>
+
+      <p class="proj-page-section-title" style="margin-top:2rem;">The Honest Caveat</p>
+      <p>Menominee County produces the highest need score in Wisconsin by a wide margin — driven by 45.5% child poverty and a life expectancy of 63 years. Yet it lands outside the highest priority quadrant because its provider rates, inflated by Indian Health Service infrastructure on the Menominee reservation, push its access gap score into negative territory. The model reads this as adequate access. The reality tells a different story.</p>
+      <p>This is not a flaw to hide. County-level provider rate data cannot capture whether providers are accessible, culturally appropriate, or adequately funded. The model is honest about what it measures. What it cannot measure is equally important to name.</p>
+
+      <p class="proj-page-section-title" style="margin-top:2rem;">Key Findings</p>
       <ul>
-        <li>What's working so far</li>
-        <li>What you're currently tackling</li>
-        <li>What the end goal looks like</li>
+        <li>10 of 72 Wisconsin counties face simultaneous high need and poor access — all predominantly rural, averaging 98.6% rural population</li>
+        <li>Clark County is the highest-priority investment target when population reach is considered, with the highest access gap score in Wisconsin (4.588) and simultaneous insurance and broadband deficits</li>
+        <li>Three distinct access failure profiles emerged: insurance and connectivity deserts, primary care voids, and mental health provider gaps — each requiring a different intervention</li>
+        <li>Population-weighted sensitivity analysis confirmed the composite ranking is robust — maximum rank divergence in the top 20 counties was just two positions</li>
+        <li>The high_need_low_gap quadrant requires careful interpretation: three of its eight counties contain Native American reservations where federal provider infrastructure inflates access metrics</li>
       </ul>
+
+      <p style="margin-top:1.5rem;font-size:13px;color:var(--ink3);">Data source: County Health Rankings &amp; Roadmaps 2025, University of Wisconsin Population Health Institute. Analysis scope: 72 Wisconsin counties. All scores reflect relative position within the Wisconsin distribution.</p>
     `
   },
   'project-3': {
