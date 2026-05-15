@@ -928,6 +928,7 @@ const PROJECTS = {
     status: 'Complete', statusClass: 'complete',
     stack: ['Python', 'dbt', 'Snowflake', 'PCA', 'scikit-learn'],
     github: '#',
+    images: ['images/top10_counties_ranked.png', 'images/priority quadrant breakdown.png'],
     summary: `
       <p>Imagine you are a policymaker with a limited budget and 72 Wisconsin counties asking for attention. Every county has needs. Every county has gaps. But you cannot fund everything, and the wrong choice means the most vulnerable communities wait another year.</p>
       <p>That is the problem this project set out to solve.</p>
@@ -989,6 +990,11 @@ function openProject(id) {
   const p = PROJECTS[id];
   if (!p) return;
   const chips = p.stack.map(s => `<span class="proj-chip" style="font-size:12px;padding:4px 10px;">${s}</span>`).join('');
+
+  const imgs = (p.images && p.images.length)
+    ? p.images.map(src => `<img src="${src}" alt="${p.title}" style="width:100%;border-radius:10px;margin-bottom:1rem;border:1px solid var(--border);">`).join('')
+    : `<div class="proj-img-placeholder">[ Add a screenshot, chart, or diagram here ]</div>`;
+
   document.getElementById('proj-page-body').innerHTML = `
     <p class="proj-page-label">${p.label}</p>
     <h2 class="proj-page-title">${p.title}</h2>
@@ -996,7 +1002,7 @@ function openProject(id) {
       <span class="proj-status ${p.statusClass}">${p.status}</span>
       ${chips}
     </div>
-    <div class="proj-img-placeholder">[ Add a screenshot, chart, or diagram here ]</div>
+    ${imgs}
     <p class="proj-page-section-title">Project Write-Up</p>
     <div class="proj-page-content">${p.summary}</div>
     <div class="proj-page-divider"></div>
