@@ -791,7 +791,7 @@ footer a:hover { color: var(--accent); }
           </div>
           <span class="proj-status ongoing">Ongoing</span>
         </div>
-        <p class="proj-title">GIOT Coffee Location Intelligence</p>
+        <p class="proj-title">VIETNAM Coffee Location Intelligence</p>
         <p class="proj-desc">An end-to-end data engineering pipeline scoring 36 Minneapolis-metro cities for coffee shop expansion potential — pulling US Census ACS data across demographics, economics, housing, and social indicators into Snowflake via a dbt medallion architecture.</p>
         <div class="proj-stack">
           <span class="proj-chip">Python</span><span class="proj-chip">dbt</span><span class="proj-chip">Snowflake</span><span class="proj-chip">Census API</span>
@@ -921,13 +921,13 @@ footer a:hover { color: var(--accent); }
 const PROJECTS = {
   'project-1': {
     label: 'Data Engineering',
-    title: 'GIOT Coffee Location Intelligence',
+    title: 'VIETNAM Coffee Location Intelligence',
     status: 'Ongoing', statusClass: 'ongoing',
     stack: ['Python', 'dbt', 'Snowflake', 'Census API'],
     github: '#',
     iframe: 'giot_results_table.html',
     summary: `
-      <p>GIOT Coffee is evaluating expansion across the Minneapolis metro area — 36 cities spanning the inner ring, outer suburbs, and corridor communities. The question this project is designed to answer: <strong>which cities offer the most favorable demographic and economic conditions for a new coffee shop location?</strong></p>
+      <p>VIETNAM Coffee is evaluating expansion across the Minneapolis metro area — 36 cities spanning the inner ring, outer suburbs, and corridor communities. The question this project is designed to answer: <strong>which cities offer the most favorable demographic and economic conditions for a new coffee shop location?</strong></p>
 
       <p class="proj-page-section-title" style="margin-top:2rem;">The Pipeline</p>
       <p>The project is an end-to-end data engineering pipeline built on <strong>Python</strong>, <strong>dbt</strong>, and <strong>Snowflake</strong>, pulling four US Census ACS 1-Year Data Profile tables (DP02, DP03, DP04, DP05) via the Census API for all 36 target cities. Raw data lands in a medallion architecture — Raw → Staging → Conformed — with each layer adding structure, cleaning, and feature engineering on top of the last.</p>
