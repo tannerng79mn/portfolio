@@ -9,20 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-.proj-images-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2.5rem;
-}
-
-.proj-images-container img {
-  width: 100%;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-}
-</style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -514,6 +500,20 @@ footer a:hover { color: var(--accent); }
   .projects-grid { grid-template-columns: 1fr; }
   .hero-cards { flex-direction: column; }
 }
+
+/* ─── PROJECT IMAGES ─── */
+.proj-images-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.proj-images-container img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
 </style>
 </head>
 <body>
@@ -855,8 +855,6 @@ footer a:hover { color: var(--accent); }
   </div>
 </section>
 
-
-
 <!-- ════════════════════ CONTACT ════════════════════ -->
 <section id="contact">
   <div class="container">
@@ -884,7 +882,7 @@ footer a:hover { color: var(--accent); }
               <div class="contact-link-sub">linkedin.com/in/tanner-nguyen-807448371</div>
             </div>
           </a>
-          <a href="https://github.com/tannernguyen" target="_blank" rel="noopener" class="contact-link">
+          <a href="https://github.com/tannerng79mn" target="_blank" rel="noopener" class="contact-link">
             <div class="contact-link-icon">
               <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
             </div>
@@ -904,7 +902,6 @@ footer a:hover { color: var(--accent); }
           </a>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -942,7 +939,7 @@ const PROJECTS = {
     status: 'Complete', statusClass: 'complete',
     stack: ['Python', 'dbt', 'Snowflake', 'PCA', 'scikit-learn'],
     github: '#',
-    images: ['images/top10wicountiesranked.png', 'images/priority quadrant breakdown.png'],
+    images: ['images/top10wicountiesranked.png', 'images/priorityquadrantbreakdown.png'],
     summary: `
       <p>Imagine you are a policymaker with a limited budget and 72 Wisconsin counties asking for attention. Every county has needs. Every county has gaps. But you cannot fund everything, and the wrong choice means the most vulnerable communities wait another year.</p>
       <p>That is the problem this project set out to solve.</p>
@@ -1006,7 +1003,9 @@ function openProject(id) {
   const chips = p.stack.map(s => `<span class="proj-chip" style="font-size:12px;padding:4px 10px;">${s}</span>`).join('');
 
   const imgs = (p.images && p.images.length)
-    ? `<div class="proj-images-container">` + p.images.map(src => `<img src="${src}" alt="${p.title}" style="width:100%;border-radius:10px;margin-bottom:1rem;border:1px solid var(--border);">`).join('')
+    ? `<div class="proj-images-container">` +
+      p.images.map(src => `<img src="${src}" alt="${p.title}">`).join('') +
+      `</div>`
     : `<div class="proj-img-placeholder">[ Add a screenshot, chart, or diagram here ]</div>`;
 
   document.getElementById('proj-page-body').innerHTML = `
