@@ -1019,7 +1019,7 @@ function openProject(id) {
   const chips = p.stack.map(s => `<span class="proj-chip" style="font-size:12px;padding:4px 10px;">${s}</span>`).join('');
 
   const imgs = p.iframe
-    ? `<iframe src="${p.iframe}" style="width:100%;height:540px;border:1px solid var(--border);border-radius:10px;margin-bottom:2.5rem;" frameborder="0"></iframe>`
+    ? `<iframe src="${p.iframe}" style="width:100%;height:700px;border:1px solid var(--border);border-radius:10px;margin-bottom:2.5rem;" frameborder="0"></iframe>`
     : (p.images && p.images.length)
       ? `<div class="proj-images-container">` +
         p.images.map(src => `<img src="${src}" alt="${p.title}">`).join('') +
