@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GIOT Coffee — Expansion Candidates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #F5F3EE;
+  --bg2:     #ECEAE3;
+  --bg3:     #E3E0D6;
+  --ink:     #18160F;
+  --ink2:    #5C5849;
+  --ink3:    #9B9484;
+  --accent:  #1746A2;
+  --accent2: #C8440A;
+  --light-a: #E8EEFA;
+  --border:  rgba(24,22,15,0.10);
+  --border2: rgba(24,22,15,0.06);
+  --serif:   'Instrument Serif', Georgia, serif;
+  --sans:    'DM Sans', sans-serif;
+  --mono:    'DM Mono', monospace;
+  --r:       5px;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  padding: 3rem 2.5rem;
+}
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--ink3);
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 1.5rem;
+}
+.section-label::before { content: ''; width: 24px; height: 1px; background: var(--ink3); flex-shrink: 0; }
+
+/* ── HEADING ── */
+.table-heading {
+  font-family: var(--serif); font-size: 1.9rem; font-weight: 400;
+  letter-spacing: -0.02em; line-height: 1.2; color: var(--ink);
+  margin-bottom: 0.6rem;
+}
+.table-heading em { font-style: italic; color: var(--accent); }
+.table-sub {
+  font-size: 14px; color: var(--ink2); margin-bottom: 2rem; max-width: 560px; line-height: 1.75;
+}
+
+/* ── REFERENCE CHIP ROW ── */
+.ref-row {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.ref-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink3);
+}
+.ref-chip {
+  font-family: var(--mono); font-size: 10px; padding: 3px 10px;
+  border-radius: 3px; background: var(--light-a);
+  border: 1px solid rgba(23,70,162,0.18); color: var(--accent);
+}
+
+/* ── TABLE WRAPPER ── */
+.table-wrap {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%; border-collapse: collapse;
+}
+
+thead {
+  background: var(--bg2);
+}
+th {
+  padding: 0.75rem 1rem;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink3); font-weight: 400;
+  text-align: left; border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+th.right { text-align: right; }
+
+tbody tr { border-bottom: 1px solid var(--border2); transition: background 0.12s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--bg2); }
+
+td {
+  padding: 0.8rem 1rem;
+  font-size: 13.5px; color: var(--ink2);
+  white-space: nowrap;
+}
+td.right { text-align: right; }
+td.city  { color: var(--ink); font-weight: 500; font-size: 14px; }
+td.rank  {
+  font-family: var(--serif); font-size: 1.25rem; font-weight: 400;
+  color: var(--ink3); width: 44px; font-style: italic;
+}
+
+/* top 3 rank color */
+tr:nth-child(1) td.rank { color: var(--accent); }
+tr:nth-child(2) td.rank { color: var(--ink2); }
+tr:nth-child(3) td.rank { color: var(--ink2); }
+
+
+/* ── BADGE ── */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 2px 8px; border-radius: 999px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.badge-top  { background: #E8EEFA; color: var(--accent); border: 1px solid rgba(23,70,162,0.18); }
+.badge-std  { background: var(--bg2); color: var(--ink3); border: 1px solid var(--border); }
+.badge-dot  { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+/* ── MONO VALUE ── */
+.mono-val { font-family: var(--mono); font-size: 12px; }
+
+/* ── FOOTNOTE ── */
+.footnote {
+  margin-top: 1rem; padding: 0.9rem 1.1rem;
+  background: var(--bg2); border-left: 3px solid var(--border);
+  border-radius: 0 var(--r) var(--r) 0;
+  font-family: var(--mono); font-size: 11px; color: var(--ink3); line-height: 1.8;
+}
+.footnote strong { color: var(--ink2); font-weight: 400; }
+</style>
+</head>
+<body>
+
+<p class="section-label">5.2 — City Rankings</p>
+
+<h2 class="table-heading">Expansion <em>Candidates</em></h2>
+<p class="table-sub">
+  Cities ranked by Euclidean distance from Richfield's scaled feature vector. Smaller distance = closer demographic match to the reference store.
+</p>
+
+<div class="ref-row">
+  <span class="ref-label">Reference store</span>
+  <span class="ref-chip">Richfield, MN</span>
+  <span class="ref-chip">target age 45.2%</span>
+  <span class="ref-chip">income $85,132</span>
+  <span class="ref-chip">somali 0.64%</span>
+  <span class="ref-chip">K-means cluster 1</span>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>City</th>
+        <th class="right">Population</th>
+        <th class="right">Target age %</th>
+        <th class="right">Med. income</th>
+        <th class="right">HS+ %</th>
+        <th class="right">Somali %</th>
+        <th class="right">Asian %</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rank">1</td>
+        <td class="city">Burnsville</td>
+        <td class="right mono-val">64,463</td>
+        <td class="right mono-val">42.0%</td>
+        <td class="right mono-val">$87,024</td>
+        <td class="right mono-val">92.3%</td>
+        <td class="right mono-val">0.39%</td>
+        <td class="right mono-val">1.0%</td>
+        <td><span class="badge badge-top"><span class="badge-dot"></span>Top pick</span></td>
+      </tr>
+      <tr>
+        <td class="rank">2</td>
+        <td class="city">Fridley</td>
+        <td class="right mono-val">30,241</td>
+        <td class="right mono-val">42.7%</td>
+        <td class="right mono-val">$77,680</td>
+        <td class="right mono-val">91.6%</td>
+        <td class="right mono-val">0.69%</td>
+        <td class="right mono-val">1.2%</td>
+        <td><span class="badge badge-top"><span class="badge-dot"></span>Top pick</span></td>
+      </tr>
+      <tr>
+        <td class="rank">3</td>
+        <td class="city">Brooklyn Park</td>
+        <td class="right mono-val">83,876</td>
+        <td class="right mono-val">41.5%</td>
+        <td class="right mono-val">$89,891</td>
+        <td class="right mono-val">88.7%</td>
+        <td class="right mono-val">0.49%</td>
+        <td class="right mono-val">0.9%</td>
+        <td><span class="badge badge-top"><span class="badge-dot"></span>Top pick</span></td>
+      </tr>
+      <tr>
+        <td class="rank">4</td>
+        <td class="city">Bloomington</td>
+        <td class="right mono-val">88,665</td>
+        <td class="right mono-val">38.4%</td>
+        <td class="right mono-val">$93,211</td>
+        <td class="right mono-val">93.1%</td>
+        <td class="right mono-val">0.62%</td>
+        <td class="right mono-val">0.8%</td>
+        <td><span class="badge badge-std">Candidate</span></td>
+      </tr>
+      <tr>
+        <td class="rank">5</td>
+        <td class="city">West St. Paul</td>
+        <td class="right mono-val">21,382</td>
+        <td class="right mono-val">40.5%</td>
+        <td class="right mono-val">$68,464</td>
+        <td class="right mono-val">92.5%</td>
+        <td class="right mono-val">0.70%</td>
+        <td class="right mono-val">0.6%</td>
+        <td><span class="badge badge-std">Candidate</span></td>
+      </tr>
+      <tr>
+        <td class="rank">6</td>
+        <td class="city">North St. Paul</td>
+        <td class="right mono-val">12,570</td>
+        <td class="right mono-val">41.3%</td>
+        <td class="right mono-val">$84,797</td>
+        <td class="right mono-val">88.1%</td>
+        <td class="right mono-val">0.14%</td>
+        <td class="right mono-val">0.7%</td>
+        <td><span class="badge badge-std">Candidate</span></td>
+      </tr>
+      <tr>
+        <td class="rank">7</td>
+        <td class="city">St. Paul</td>
+        <td class="right mono-val">307,284</td>
+        <td class="right mono-val">46.7%</td>
+        <td class="right mono-val">$73,394</td>
+        <td class="right mono-val">89.3%</td>
+        <td class="right mono-val">0.68%</td>
+        <td class="right mono-val">0.7%</td>
+        <td><span class="badge badge-std">Candidate</span></td>
+      </tr>
+      <tr>
+        <td class="rank">8</td>
+        <td class="city">Maplewood</td>
+        <td class="right mono-val">40,695</td>
+        <td class="right mono-val">37.6%</td>
+        <td class="right mono-val">$91,394</td>
+        <td class="right mono-val">91.8%</td>
+        <td class="right mono-val">0.78%</td>
+        <td class="right mono-val">0.8%</td>
+        <td><span class="badge badge-std">Candidate</span></td>
+      </tr>
+      <tr>
+        <td class="rank">9</td>
+        <td class="city">New Hope</td>
+        <td class="right mono-val">21,181</td>
+        <td class="right mono-val">38.3%</td>
+        <td class="right mono-val">$77,662</td>
+        <td class="right mono-val">94.7%</td>
+        <td class="right mono-val">0.45%</td>
+        <td class="right mono-val">0.3%</td>
+        <td><span class="badge badge-std">Candidate</span></td>
+      </tr>
+      <tr>
+        <td class="rank">10</td>
+        <td class="city">Coon Rapids</td>
+        <td class="right mono-val">63,468</td>
+        <td class="right mono-val">40.8%</td>
+        <td class="right mono-val">$88,251</td>
+        <td class="right mono-val">94.2%</td>
+        <td class="right mono-val">0.55%</td>
+        <td class="right mono-val">0.6%</td>
+        <td><span class="badge badge-std">Candidate</span></td>
+      </tr>
+      <tr>
+        <td class="rank">11</td>
+        <td class="city">Hopkins</td>
+        <td class="right mono-val">18,819</td>
+        <td class="right mono-val">42.7%</td>
+        <td class="right mono-val">$75,234</td>
+        <td class="right mono-val">94.3%</td>
+        <td class="right mono-val">0.15%</td>
+        <td class="right mono-val">0.8%</td>
+        <td><span class="badge badge-std">Candidate</span></td>
+      </tr>
+      <tr>
+        <td class="rank">12</td>
+        <td class="city">Columbia Heights</td>
+        <td class="right mono-val">22,155</td>
+        <td class="right mono-val">42.0%</td>
+        <td class="right mono-val">$73,691</td>
+        <td class="right mono-val">90.6%</td>
+        <td class="right mono-val">0.38%</td>
+        <td class="right mono-val">0.7%</td>
+        <td><span class="badge badge-std">Candidate</span></td>
+      </tr>
+      <tr>
+        <td class="rank">13</td>
+        <td class="city">Oakdale</td>
+        <td class="right mono-val">28,585</td>
+        <td class="right mono-val">37.1%</td>
+        <td class="right mono-val">$93,772</td>
+        <td class="right mono-val">93.6%</td>
+        <td class="right mono-val">0.71%</td>
+        <td class="right mono-val">0.4%</td>
+        <td><span class="badge badge-std">Candidate</span></td>
+      </tr>
+      <tr>
+        <td class="rank">14</td>
+        <td class="city">Brooklyn Center</td>
+        <td class="right mono-val">32,479</td>
+        <td class="right mono-val">42.0%</td>
+        <td class="right mono-val">$72,535</td>
+        <td class="right mono-val">88.1%</td>
+        <td class="right mono-val">1.36%</td>
+        <td class="right mono-val">0.4%</td>
+        <td><span class="badge badge-std">Candidate</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p class="footnote">
+  <strong>Source:</strong> US Census ACS 5-Year Estimates 2024 (DP02, DP03, DP04, DP05) · 
+  <strong>Model:</strong> K-means clustering (K=2, StandardScaler) · scikit-learn · 
+  North St. Paul (pop. 12,570) retained in table; Spring Lake Park and Osseo excluded from final recommendations due to insufficient market size.
+</p>
+
+</body>
+</html>
