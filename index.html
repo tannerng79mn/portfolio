@@ -9,6 +9,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
+.proj-images-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.proj-images-container img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+</style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -928,7 +942,7 @@ const PROJECTS = {
     status: 'Complete', statusClass: 'complete',
     stack: ['Python', 'dbt', 'Snowflake', 'PCA', 'scikit-learn'],
     github: '#',
-    images: ['images/top10_counties_ranked.png', 'images/priority quadrant breakdown.png'],
+    images: ['images/top10wicountiesranked.png', 'images/priority quadrant breakdown.png'],
     summary: `
       <p>Imagine you are a policymaker with a limited budget and 72 Wisconsin counties asking for attention. Every county has needs. Every county has gaps. But you cannot fund everything, and the wrong choice means the most vulnerable communities wait another year.</p>
       <p>That is the problem this project set out to solve.</p>
@@ -992,7 +1006,7 @@ function openProject(id) {
   const chips = p.stack.map(s => `<span class="proj-chip" style="font-size:12px;padding:4px 10px;">${s}</span>`).join('');
 
   const imgs = (p.images && p.images.length)
-    ? p.images.map(src => `<img src="${src}" alt="${p.title}" style="width:100%;border-radius:10px;margin-bottom:1rem;border:1px solid var(--border);">`).join('')
+    ? `<div class="proj-images-container">` + p.images.map(src => `<img src="${src}" alt="${p.title}" style="width:100%;border-radius:10px;margin-bottom:1rem;border:1px solid var(--border);">`).join('')
     : `<div class="proj-img-placeholder">[ Add a screenshot, chart, or diagram here ]</div>`;
 
   document.getElementById('proj-page-body').innerHTML = `
