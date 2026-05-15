@@ -328,6 +328,7 @@ h1 em { font-style: italic; color: var(--accent); }
 }
 .proj-status.complete { background: #E6F4EA; color: #1A6B2E; border: 1px solid #A8D5B0; }
 .proj-status.progress { background: #FFF5E6; color: #7A4500; border: 1px solid #EDD090; }
+.proj-status.ongoing { background: #FFF5E6; color: #7A4500; border: 1px solid #EDD090; }
 .proj-status.placeholder { background: var(--bg2); color: var(--ink3); border: 1px solid var(--border); }
 .proj-title { font-size: 1.1rem; font-weight: 500; color: var(--ink); letter-spacing: -0.01em; line-height: 1.3; }
 .proj-desc { font-size: 14px; color: var(--ink2); line-height: 1.8; flex: 1; }
@@ -788,12 +789,12 @@ footer a:hover { color: var(--accent); }
           <div class="proj-icon">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 9h3M15 13h3M15 17h3"/></svg>
           </div>
-          <span class="proj-status complete">Complete</span>
+          <span class="proj-status ongoing">Ongoing</span>
         </div>
-        <p class="proj-title">Your Project Title</p>
-        <p class="proj-desc">Describe the problem you solved and the dataset you used. What question were you answering? What was the outcome or insight? Keep it specific — one sharp sentence is better than three vague ones.</p>
+        <p class="proj-title">GIOT Coffee Location Intelligence</p>
+        <p class="proj-desc">An end-to-end data engineering pipeline scoring 36 Minneapolis-metro cities for coffee shop expansion potential — pulling US Census ACS data across demographics, economics, housing, and social indicators into Snowflake via a dbt medallion architecture.</p>
         <div class="proj-stack">
-          <span class="proj-chip">Python</span><span class="proj-chip">SQL</span><span class="proj-chip">Power BI</span>
+          <span class="proj-chip">Python</span><span class="proj-chip">dbt</span><span class="proj-chip">Snowflake</span><span class="proj-chip">Census API</span>
         </div>
         <div class="proj-footer">
           <button class="proj-link" onclick="openProject('project-1')">
@@ -919,21 +920,33 @@ footer a:hover { color: var(--accent); }
 <script>
 const PROJECTS = {
   'project-1': {
-    label: 'Data Analytics',
-    title: 'Your Project Title',
-    status: 'Complete', statusClass: 'complete',
-    stack: ['Python', 'SQL', 'Power BI'],
+    label: 'Data Engineering',
+    title: 'GIOT Coffee Location Intelligence',
+    status: 'Ongoing', statusClass: 'ongoing',
+    stack: ['Python', 'dbt', 'Snowflake', 'Census API'],
     github: '#',
+    iframe: 'giot_results_table.html',
     summary: `
-      <p>Replace this paragraph with an intro to your project. Describe the <strong>problem or question</strong> you set out to answer, why it interested you, and what dataset you worked with.</p>
-      <p>Walk through your <strong>approach and methodology</strong>. What did the pipeline look like? How did you clean, model, or transform the data? What analytical techniques did you apply?</p>
-      <p>Share your <strong>findings or outcomes</strong>. What did the data reveal? What surprised you? What would you do differently with more time or data?</p>
+      <p>GIOT Coffee is evaluating expansion across the Minneapolis metro area — 36 cities spanning the inner ring, outer suburbs, and corridor communities. The question this project is designed to answer: <strong>which cities offer the most favorable demographic and economic conditions for a new coffee shop location?</strong></p>
+
+      <p class="proj-page-section-title" style="margin-top:2rem;">The Pipeline</p>
+      <p>The project is an end-to-end data engineering pipeline built on <strong>Python</strong>, <strong>dbt</strong>, and <strong>Snowflake</strong>, pulling four US Census ACS 1-Year Data Profile tables (DP02, DP03, DP04, DP05) via the Census API for all 36 target cities. Raw data lands in a medallion architecture — Raw → Staging → Conformed — with each layer adding structure, cleaning, and feature engineering on top of the last.</p>
+      <p>The raw layer preserves every Census value exactly as returned by the API, including suppressed cells flagged as null. The staging layer standardizes column types, handles the Census sentinel value (−666,666,666), and normalizes city names across St./Saint variations. The conformed layer is where the scoring logic lives.</p>
+
+      <p class="proj-page-section-title" style="margin-top:2rem;">The Variables</p>
+      <p>Twenty demographic, economic, social, and housing variables were selected and verified against the Census API variable registry. Key signals include: share of population aged 20–34 (core coffee customer segment), median household income, work-from-home rate, renter-occupied housing share, bachelor's degree attainment, and language diversity — alongside population, housing stock, and poverty context as control dimensions.</p>
+
+      <p class="proj-page-section-title" style="margin-top:2rem;">Status</p>
+      <p>The raw data pipeline and Snowflake infrastructure are complete. The dbt staging and conformed layers are in active development. Scoring and ranking logic is the next milestone.</p>
+
       <ul>
-        <li>Key finding or result one</li>
-        <li>Key finding or result two</li>
-        <li>Key finding or result three</li>
+        <li>36 Minneapolis-metro cities targeted across four ACS data profile tables</li>
+        <li>20 verified Census variables covering demographics, economics, housing, and social indicators</li>
+        <li>Medallion architecture (Raw → Staging → Conformed) deployed in Snowflake</li>
+        <li>City name normalization handles St./Saint variations and duplicate place FIPS edge cases</li>
       </ul>
-      <p>Close with a short reflection — what you learned and how this project fits into the bigger picture of your work.</p>
+
+      <p style="margin-top:1.5rem;font-size:13px;color:var(--ink3);">Data source: US Census Bureau ACS 1-Year Data Profiles 2024. Analysis scope: 36 Minneapolis–Saint Paul metro cities. Pipeline actively under development.</p>
     `
   },
   'project-2': {
@@ -1005,11 +1018,13 @@ function openProject(id) {
   if (!p) return;
   const chips = p.stack.map(s => `<span class="proj-chip" style="font-size:12px;padding:4px 10px;">${s}</span>`).join('');
 
-  const imgs = (p.images && p.images.length)
-    ? `<div class="proj-images-container">` +
-      p.images.map(src => `<img src="${src}" alt="${p.title}">`).join('') +
-      `</div>`
-    : `<div class="proj-img-placeholder">[ Add a screenshot, chart, or diagram here ]</div>`;
+  const imgs = p.iframe
+    ? `<iframe src="${p.iframe}" style="width:100%;height:540px;border:1px solid var(--border);border-radius:10px;margin-bottom:2.5rem;" frameborder="0"></iframe>`
+    : (p.images && p.images.length)
+      ? `<div class="proj-images-container">` +
+        p.images.map(src => `<img src="${src}" alt="${p.title}">`).join('') +
+        `</div>`
+      : `<div class="proj-img-placeholder">[ Add a screenshot, chart, or diagram here ]</div>`;
 
   document.getElementById('proj-page-body').innerHTML = `
     <p class="proj-page-label">${p.label}</p>
